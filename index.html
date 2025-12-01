@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cảng Cái Mép Thị Vải | Green & Smart Inland Port</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Cảng Cái Mép Thị Vải: Cảng container xanh – thông minh, ứng dụng công nghệ AI & Dashboard thời gian thực, hướng tới Net-zero."
+  />
+  <style>
+    :root {
+      --green-dark: #0b5b43;
+      --green-main: #18a058;
+      --green-soft: #e3f5ee;
+      --blue-main: #1f6feb;
+      --bg-light: #f6f8fb;
+      --text-main: #222;
+      --text-muted: #666;
+      --border-soft: #dde5ef;
+      --white: #ffffff;
+      --radius-lg: 18px;
+      --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.08);
+      --max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      color: var(--text-main);
+      background: #f3f4f6; /* nền dịu */
+      line-height: 1.6;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: 4rem 0;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3rem 0;
+      }
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--green-dark);
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 2rem;
+    }
+
+    /* Bilingual toggle */
+    .t-vi, .t-en {
+      /* cả hai cùng tồn tại, CSS dưới sẽ ẩn bớt */
+    }
+    body.lang-vi .t-en {
+      display: none !important;
+    }
+    body.lang-en .t-vi {
+      display: none !important;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(243, 244, 246, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1.5rem;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0, #047857);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ecfeff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .logo-text span:first-child {
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--green-dark);
+    }
+
+    .logo-text span:last-child {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      color: #0f172a;
+      position: relative;
+      padding-bottom: 0.1rem;
+      white-space: nowrap;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--green-main), var(--blue-main));
+      transition: width 0.2s ease-out;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav-cta {
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+      color: white !important;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
+      border: none;
+    }
+
+    .nav-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Language switch */
+    .lang-switch {
+      display: flex;
+      gap: 0.25rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      padding: 0.1rem;
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .lang-switch button {
+      border: none;
+      background: transparent;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #4b5563;
+    }
+
+    .lang-switch button.active {
+      background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+      color: #fff;
+      box-shadow: 0 6px 16px rgba(22, 163, 74, 0.4);
+    }
+
+    @media (max-width: 900px) {
+      .nav {
+        display: none;
+      }
+      .nav-toggle {
+        display: block;
+      }
+    }
+
+    /* Hero */
+    .hero {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .hero-badge-line {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(22, 163, 74, 0.25);
+      color: #166534;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0, #16a34a);
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw + 1.3rem, 3rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #022c22;
+    }
+
+    .hero-title span.highlight {
+      background: linear-gradient(120deg, #16a34a, #22c55e, #0ea5e9);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      max-width: 32rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-primary {
+      padding: 0.75rem 1.5rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--green-main), var(--blue-main));
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 16px 40px rgba(22, 163, 74, 0.5);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-secondary {
+      padding: 0.75rem 1.4rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .hero-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 260px;
+    }
+
+    .hero-card {
+      position: relative;
+      background: radial-gradient(circle at 90% 100%, #22c55e, #0369a1);
+      border-radius: 28px;
+      padding: 1.6rem;
+      color: white;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .hero-chip {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+      background: rgba(15, 23, 42, 0.2);
+    }
+
+    .hero-card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .hero-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .hero-kpi {
+      padding: 0.6rem 0.7rem;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.2);
+      border: 1px solid rgba(226, 232, 240, 0.3);
+      font-size: 0.7rem;
+    }
+
+    .hero-kpi strong {
+      display: block;
+      font-size: 0.95rem;
+    }
+
+    .hero-badge-float {
+      right: 0.7rem;
+      bottom: -0.9rem;
+      background: #ecfdf3;
+      color: #166534;
+      margin: 10px 0;
+      padding: 0.6rem 0.8rem;
+      border-radius: 18px;
+      box-shadow: 0 14px 35px rgba(15, 23, 42, 0.25);
+      font-size: 0.75rem;
+    }
+
+    .hero-badge-float strong {
+      font-size: 0.8rem;
+    }
+
+    .hero-badge-progress {
+      margin-top: 0.35rem;
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: #d1fae5;
+      overflow: hidden;
+    }
+
+    .hero-badge-progress span {
+      display: block;
+      width: 68%;
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #22d3ee);
+    }
+
+    /* Stats strip */
+    .stats-strip {
+      background: rgba(243, 244, 246, 0.95);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+      padding: 1.75rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--green-dark);
+    }
+
+    .stat-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    /* Services */
+    .section-services {
+      background: var(--bg-light);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(
+        circle at 0% 0%,
+        rgba(74, 222, 128, 0.2),
+        transparent 55%
+      );
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: rgba(22, 163, 74, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: #022c22;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-tag {
+      display: inline-flex;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.11);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-size: 0.7rem;
+      color: #0369a1;
+    }
+
+    /* Technology & AI */
+    .tech-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .tech-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .timeline {
+      border-left: 2px dashed rgba(148, 163, 184, 0.6);
+      padding-left: 1.25rem;
+      margin-left: 0.5rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.4rem;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -1.61rem;
+      top: 0.3rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #0ea5e9);
+      box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.22);
+    }
+
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .timeline-meta {
+      font-size: 0.78rem;
+      color: #0f766e;
+      margin-top: 0.2rem;
+    }
+
+    .tech-card {
+      background: linear-gradient(145deg, #0f766e, #15803d);
+      border-radius: 22px;
+      padding: 1.5rem;
+      color: white;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tech-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.9;
+    }
+
+    .tech-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .tech-pill {
+      font-size: 0.75rem;
+      background: rgba(15, 23, 42, 0.25);
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      display: inline-flex;
+      margin-bottom: 0.6rem;
+      border: 1px solid rgba(226, 232, 240, 0.6);
+    }
+
+    .tech-heading {
+      font-size: 1.05rem;
+      margin-bottom: 0.7rem;
+      font-weight: 600;
+    }
+
+    .tech-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
+      font-size: 0.8rem;
+    }
+
+    .tech-mini-item {
+      background: rgba(15, 23, 42, 0.32);
+      border-radius: 14px;
+      padding: 0.5rem 0.6rem;
+      border: 1px solid rgba(226, 232, 240, 0.3);
+    }
+
+    .tech-mini-item strong {
+      display: block;
+      font-size: 0.82rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .tech-foot {
+      font-size: 0.75rem;
+      margin-top: 0.7rem;
+      opacity: 0.9;
+    }
+
+    /* ESG */
+    .section-esg {
+      background: var(--green-soft);
+    }
+
+    .esg-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 900px) {
+      .esg-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .esg-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 18px;
+      padding: 1.3rem;
+      border: 1px solid rgba(34, 197, 94, 0.35);
+      box-shadow: 0 8px 24px rgba(22, 163, 74, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .esg-card::after {
+      content: "";
+      position: absolute;
+      right: -18px;
+      top: -18px;
+      width: 80px;
+      height: 80px;
+      border-radius: 999px;
+      border: 1px dashed rgba(16, 185, 129, 0.3);
+      background: radial-gradient(circle at 30% 70%, #bbf7d0, transparent 60%);
+      opacity: 0.65;
+    }
+
+    .esg-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #059669;
+      margin-bottom: 0.2rem;
+    }
+
+    .esg-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: #022c22;
+    }
+
+    .esg-card ul {
+      list-style: disc;
+      padding-left: 1.1rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .esg-tagline {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #0f766e;
+      font-style: italic;
+    }
+
+    /* Clients */
+    .clients-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .client-pill {
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.8);
+      font-size: 0.85rem;
+      background: white;
+    }
+
+    .clients-note {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.8rem;
+    }
+
+    /* News */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 992px) {
+      .news-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .news-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 18px;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-body {
+      padding: 1rem 1.25rem 1.1rem;
+      flex: 1;
+    }
+
+    .news-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .news-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      color: #0f172a;
+    }
+
+    .news-summary {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .news-footer {
+      padding: 0.8rem 1.25rem 1rem;
+      font-size: 0.8rem;
+      color: #0369a1;
+      border-top: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    /* Contact */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+    }
+
+    .contact-row {
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .contact-label {
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .contact-map {
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      overflow: hidden;
+      background: #e5f9ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      font-size: 0.85rem;
+      color: #0f172a;
+      text-align: left;
+      padding: 1rem 1.2rem;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 1.5rem 0 2rem;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      margin-top: auto;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-links a {
+      color: #9ca3af;
+    }
+
+    @media (max-width: 640px) {
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body class="lang-vi">
+  <div class="page-wrapper">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-inner">
+        <div class="logo-wrap">
+          <div class="logo-circle"><img src="Logo CMTV-01.png"></div>
+          <div class="logo-text">
+            <span class="t-vi">Cảng Cái Mép Thị Vải</span>
+            <span class="t-en">Cai Mep Thi Vai Port</span>
+            <span class="t-vi">Green & Smart Inland Container Terminal</span>
+            <span class="t-en">Green & Smart Inland Container Terminal</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="#about">
+            <span class="t-vi">Giới thiệu</span>
+            <span class="t-en">About</span>
+          </a>
+          <a href="#services">
+            <span class="t-vi">Dịch vụ</span>
+            <span class="t-en">Services</span>
+          </a>
+          <a href="#technology">
+            <span class="t-vi">Công nghệ &amp; AI</span>
+            <span class="t-en">Technology &amp; AI</span>
+          </a>
+          <a href="#esg">
+            <span class="t-vi">ESG – Net-zero</span>
+            <span class="t-en">ESG – Net-zero</span>
+          </a>
+          <a href="#clients">
+            <span class="t-vi">Khách hàng</span>
+            <span class="t-en">Clients</span>
+          </a>
+          <a href="#news">
+            <span class="t-vi">Tin tức</span>
+            <span class="t-en">News</span>
+          </a>
+          <a href="#contact" class="nav-cta">
+            <span class="t-vi">Liên hệ cảng</span>
+            <span class="t-en">Contact Port</span>
+          </a>
+          <div class="lang-switch">
+            <button type="button" data-lang="lang-vi" class="active">VI</button>
+            <button type="button" data-lang="lang-en">EN</button>
+          </div>
+        </nav>
+        <button class="nav-toggle" aria-label="Menu">
+          ☰
+        </button>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- HERO -->
+      <section id="about" class="hero">
+        <div class="container">
+          <div class="hero-inner">
+            <div>
+              <div class="hero-badge-line">
+                <span class="badge">
+                  <span class="badge-dot"></span>
+                  <span class="t-vi">
+                    Cảng container nội địa – kết nối trực tiếp cụm cảng Cái Mép và Cát Lái
+                  </span>
+                  <span class="t-en">
+                    Inland container port – directly connected to Cai Mep port and Cat Lai port
+                  </span>
+                </span>
+                <span class="badge">
+                  <span class="badge-dot"></span>
+                  <span class="t-vi">
+                    Định hướng Net-zero &amp; vận hành cảng xanh
+                  </span>
+                  <span class="t-en">
+                    Net-zero oriented &amp; green port operations
+                  </span>
+                </span>
+              </div>
+
+              <h1 class="hero-title">
+                <span class="t-vi">
+                  Cảng Cái Mép Thị Vải<br />
+                  <span class="highlight">Cửa ngõ xanh cho chuỗi logistics container</span>
+                </span>
+                <span class="t-en">
+                  Cai Mep Thi Vai Port<br />
+                  <span class="highlight">A green gateway for the container logistics chain</span>
+                </span>
+              </h1>
+
+              <p class="hero-desc">
+                <span class="t-vi">
+                  Cảng Cái Mép Thị Vải cung cấp giải pháp xếp dỡ, lưu trữ và trung chuyển
+                  container trọn gói, ứng dụng Dashboard &amp; AI thời gian thực để tối ưu vận
+                  hành bãi, giảm thời gian chờ và hướng tới Net-zero trong hoạt động khai thác cảng.
+                </span>
+                <span class="t-en">
+                  Cai Mep Thi Vai Port provides integrated solutions for container handling,
+                  storage and transshipment. The port applies real-time Dashboards and AI
+                  to optimize yard operations, minimize waiting time and move towards
+                  Net-zero in port operations.
+                </span>
+              </p>
+
+              <div class="hero-actions">
+                <a href="#services" class="btn-primary">
+                  <span class="t-vi">Xem dịch vụ cảng</span>
+                  <span class="t-en">View port services</span>
+                  <span>→</span>
+                </a>
+                <a href="#contact" class="btn-secondary">
+                  <span class="t-vi">Nhận tư vấn &amp; báo giá</span>
+                  <span class="t-en">Request consultation &amp; quotation</span>
+                </a>
+              </div>
+
+              <p class="hero-note">
+                <span class="t-vi">
+                  Hạ tầng sẵn sàng cho các tuyến sà lan – container kết nối trực tiếp với cụm
+                  cảng nước sâu Cái Mép Thị Vải và hệ sinh thái Đối Tác Chân Thật.
+                </span>
+                <span class="t-en">
+                  The port infrastructure is ready for barge and container flows that connect
+                  directly with the Cái Mép–Thị Vải deep-sea terminal cluster and the
+                  Đối Tác Chân Thật ecosystem.
+                </span>
+              </p>
+            </div>
+
+            <div class="hero-visual">
+              <div class="hero-card">
+                <div class="hero-card-content">
+                  <div class="hero-card-top">
+                    <div>
+                      <div class="hero-card-title">
+                        <span class="t-vi">
+                          Live Dashboard – Cảng Cái Mép Thị Vải
+                        </span>
+                        <span class="t-en">
+                          Live Operations Dashboard – Cai Mep Thi Vai Port
+                        </span>
+                      </div>
+                      <div style="font-size: 0.8rem; opacity: 0.9;">
+                        <span class="t-vi">
+                          Theo dõi tồn bãi, kế hoạch cầu bến, lượt sà lan &amp; xe tải theo thời gian thực.
+                        </span>
+                        <span class="t-en">
+                          Monitor yard inventory, berth plans, daily barge calls and truck
+                          flows in real time.
+                        </span>
+                      </div>
+                    </div>
+                    <span class="hero-chip">
+                      <span class="t-vi">AI assisted planning</span>
+                      <span class="t-en">AI assisted planning</span>
+                    </span>
+                  </div>
+
+                  <div class="hero-kpi-grid">
+                    <div class="hero-kpi">
+                      <span class="t-vi">Stock bãi</span>
+                      <span class="t-en">Yard inventory</span>
+                      <strong>1.600 TEU</strong>
+                      <span class="t-vi">Empty &amp; laden mix</span>
+                      <span class="t-en">Mixed empty &amp; laden</span>
+                    </div>
+                    <div class="hero-kpi">
+                      <span class="t-vi">Thời gian xe chờ</span>
+                      <span class="t-en">Truck waiting time</span>
+                      <strong>&lt; 35'</strong>
+                      <span class="t-vi">Target theo slot booking</span>
+                      <span class="t-en">Target via slot booking</span>
+                    </div>
+                    <div class="hero-kpi">
+                      <span class="t-vi">Sà lan/ngày</span>
+                      <span class="t-en">Barges/day</span>
+                      <strong>20–30</strong>
+                      <span class="t-vi">Tuyến nội địa &amp; CM–TV</span>
+                      <span class="t-en">Domestic &amp; CM–TV services</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="hero-badge-float">
+                  <strong class="t-vi">Lộ trình Net-zero 2035</strong>
+                  <strong class="t-en">Net-zero roadmap to 2035</strong>
+                  <div class="t-vi">
+                    Điện hoá thiết bị xếp dỡ &amp; tối ưu CO₂/container.
+                  </div>
+                  <div class="t-en">
+                    Gradual electrification of handling equipment and
+                    optimization of CO₂ per container.
+                  </div>
+                  <div class="hero-badge-progress">
+                    <span></span>
+                  </div>
+                  <div style="font-size: 0.7rem; margin-top: 0.1rem;">
+                    <span class="t-vi">
+                      Hoàn thành ~68% hạng mục hạ tầng xanh.
+                    </span>
+                    <span class="t-en">
+                      Around 68% of green infrastructure initiatives completed.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATS -->
+      <section class="stats-strip">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-label">
+                <span class="t-vi">Công suất thiết kế</span>
+                <span class="t-en">Design capacity</span>
+              </div>
+              <div class="stat-value">300.000+ TEU/Year</div>
+              <div class="stat-note">
+                <span class="t-vi">
+                  Linh hoạt mở rộng theo từng giai đoạn phát triển.
+                </span>
+                <span class="t-en">
+                  Flexible expansion along the port development roadmap.
+                </span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span class="t-vi">Chiều dài bến</span>
+                <span class="t-en">Berth length</span>
+              </div>
+              <div class="stat-value">X &gt; 250 m</div>
+              <div class="stat-note">
+                <span class="t-vi">
+                  Phù hợp tàu sà lan container trọng tải lớn.
+                </span>
+                <span class="t-en">
+                  Tailored for large-capacity container barges.
+                </span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span class="t-vi">Số bãi container</span>
+                <span class="t-en">Container yards</span>
+              </div>
+              <div class="stat-value">4+ yards</div>
+              <div class="stat-note">
+                <span class="t-vi">
+                  Bố trí bãi rỗng, bãi hàng, bãi reefer &amp; bãi off-hire riêng.
+                </span>
+                <span class="t-en">
+                  Dedicated areas for empties, laden, reefer and off-hire containers.
+                </span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">
+                <span class="t-vi">Mức độ số hoá</span>
+                <span class="t-en">Digitalization level</span>
+              </div>
+              <div class="stat-value">90% e-Depot</div>
+              <div class="stat-note">
+                <span class="t-vi">
+                  CODECO, booking, e-in/out qua hệ thống ứng dụng &amp; AI.
+                </span>
+                <span class="t-en">
+                  CODECO, booking and e-in/out through the application and AI platform.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SERVICES -->
+      <section id="services" class="section-services">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">Dịch vụ cốt lõi tại Cảng Cái Mép Thị Vải</span>
+            <span class="t-en">Core services at Cai Mep Thi Vai Port</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Hạ tầng cảng và bãi container được thiết kế để phục vụ trọn chuỗi dịch vụ
+              cho chủ hàng, hãng tàu, nhà xe và các depot vệ tinh, đảm bảo kết nối
+              nhanh – an toàn – minh bạch.
+            </span>
+            <span class="t-en">
+              Port and container yard infrastructure are designed to serve the full
+              service chain for cargo owners, shipping lines, trucking fleets and
+              surrounding depots, ensuring fast, safe and transparent connections.
+            </span>
+          </p>
+
+          <div class="cards-grid">
+            <article class="card">
+              <div class="card-inner">
+                <div class="card-icon">⚓</div>
+                <h3>
+                  <span class="t-vi">Khai thác cầu bến &amp; sà lan container</span>
+                  <span class="t-en">Berth and barge operations</span>
+                </h3>
+                <p>
+                  <span class="t-vi">
+                    Bố trí cầu bến chuyên dụng cho sà lan container, quy trình làm hàng
+                    tối ưu để rút ngắn thời gian nằm bến, linh hoạt theo lịch tàu của
+                    hãng tàu và chủ hàng.
+                  </span>
+                  <span class="t-en">
+                    Dedicated berths for container barges with optimized loading and
+                    discharging processes to shorten port stay time, flexibly aligned
+                    with shipping lines’ and shippers’ schedules.
+                  </span>
+                </p>
+                <span class="card-tag">
+                  <span class="t-vi">Quy trình tiêu chuẩn – Slot booking</span>
+                  <span class="t-en">Standard procedures – Slot booking</span>
+                </span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <div class="card-icon">📦</div>
+                <h3>
+                  <span class="t-vi">Lưu bãi container rỗng &amp; hàng</span>
+                  <span class="t-en">Storage of empty &amp; laden containers</span>
+                </h3>
+                <p>
+                  <span class="t-vi">
+                    Phân vùng bãi rỗng, bãi hàng, bãi reefer, bãi off-hire; áp dụng sơ đồ
+                    bãi số hoá, hỗ trợ truy xuất vị trí container theo thời gian thực qua ứng dụng.
+                  </span>
+                  <span class="t-en">
+                    Segregated yards for empties, laden, reefers and off-hire units.
+                    A digital yard map supports real-time container location lookup
+                    directly via the web or mobile application.
+                  </span>
+                </p>
+                <span class="card-tag">
+                  <span class="t-vi">Yard management theo sơ đồ số</span>
+                  <span class="t-en">Digital yard management</span>
+                </span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <div class="card-icon">🧰</div>
+                <h3>
+                  <span class="t-vi">Giám định &amp; sửa chữa container</span>
+                  <span class="t-en">Container inspection &amp; repair</span>
+                </h3>
+                <p>
+                  <span class="t-vi">
+                    Dịch vụ giám định theo tiêu chuẩn quốc tế, tích hợp hệ thống AI
+                    hỗ trợ nhận diện hư hỏng và đề xuất phương án sửa chữa tối ưu chi phí
+                    cho chủ hàng &amp; hãng tàu.
+                  </span>
+                  <span class="t-en">
+                    Inspection services following international standards, assisted by
+                    AI-based image analysis to highlight potential damages and propose
+                    cost-effective repair options for shipping lines and cargo owners.
+                  </span>
+                </p>
+                <span class="card-tag">
+                  <span class="t-vi">AI-assisted inspection</span>
+                  <span class="t-en">AI-assisted inspection</span>
+                </span>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-inner">
+                <div class="card-icon">🧼</div>
+                <h3>
+                  <span class="t-vi">Vệ sinh, fumigation &amp; xử lý môi trường</span>
+                  <span class="t-en">Cleaning, fumigation &amp; environmental handling</span>
+                </h3>
+                <p>
+                  <span class="t-vi">
+                    Khu vực vệ sinh chuyên biệt, thu gom &amp; xử lý nước thải đúng quy định;
+                    hỗ trợ fumigation, vệ sinh container thực phẩm &amp; hàng đặc thù, hướng
+                    đến vận hành xanh.
+                  </span>
+                  <span class="t-en">
+                    Dedicated cleaning zones with proper wastewater collection and
+                    treatment. Support for fumigation and cleaning of food-grade and
+                    special cargo containers, oriented towards green operations.
+                  </span>
+                </p>
+                <span class="card-tag">
+                  <span class="t-vi">Water treatment &amp; Net-zero</span>
+                  <span class="t-en">Water treatment &amp; Net-zero</span>
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECHNOLOGY & AI -->
+      <section id="technology">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">Công nghệ &amp; AI trong vận hành cảng</span>
+            <span class="t-en">Technology &amp; AI in port operations</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Cảng Cái Mép Thị Vải được xây dựng với tư duy “digital-first”:
+              tất cả giao dịch container, lịch sà lan, slot xe tải, tồn bãi và
+              báo cáo vận hành được quản lý qua hệ thống Dashboard &amp; AI tập trung.
+            </span>
+            <span class="t-en">
+              Cai Mep Thi Vai Port is built with a “digital-first” mindset:
+              all container transactions, barge schedules, truck slots, yard
+              inventory and performance reports are controlled through a central
+              Dashboard &amp; AI platform.
+            </span>
+          </p>
+
+          <div class="tech-layout">
+            <div>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">
+                    <span class="t-vi">01 – Thu thập dữ liệu tại cổng &amp; bãi</span>
+                    <span class="t-en">01 – Data collection at gate and yard</span>
+                  </div>
+                  <div class="timeline-text">
+                    <span class="t-vi">
+                      Sử dụng camera, RFID, QR code trên phiếu, dữ liệu CODECO từ
+                      hãng tàu và EDI nội bộ để ghi nhận mọi lượt container
+                      in/out, vị trí xếp bãi và thời gian thực.
+                    </span>
+                    <span class="t-en">
+                      Cameras, RFID, QR codes, CODECO messages from shipping lines
+                      and internal EDI streams are used to capture every container
+                      in/out movement, yard position and time-stamp in real time.
+                    </span>
+                  </div>
+                  <div class="timeline-meta">
+                    <span class="t-vi">
+                      Gate in/out – booking slot – nhận diện container tự động.
+                    </span>
+                    <span class="t-en">
+                      Gate in/out – slot booking – automatic container recognition.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">
+                    <span class="t-vi">02 – AI hỗ trợ giám định &amp; tối ưu sơ đồ bãi</span>
+                    <span class="t-en">02 – AI-assisted inspection &amp; yard optimization</span>
+                  </div>
+                  <div class="timeline-text">
+                    <span class="t-vi">
+                      AI phân tích hình ảnh container, đánh dấu vùng nghi vấn hư hỏng
+                      để kỹ thuật viên kiểm tra nhanh; đồng thời đề xuất sơ đồ xếp bãi
+                      giảm số lần dịch chuyển container.
+                    </span>
+                    <span class="t-en">
+                      AI analyzes container images and highlights suspected damage
+                      areas for quicker verification by technicians, while proposing
+                      yard stowage patterns that reduce unnecessary re-handling moves.
+                    </span>
+                  </div>
+                  <div class="timeline-meta">
+                    <span class="t-vi">
+                      Giảm thao tác lặp, hạn chế xếp chồng không hiệu quả.
+                    </span>
+                    <span class="t-en">
+                      Fewer repetitive moves, better stacking efficiency.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-title">
+                    <span class="t-vi">03 – Live Dashboard &amp; cảnh báo vận hành</span>
+                    <span class="t-en">03 – Live Dashboard &amp; operational alerts</span>
+                  </div>
+                  <div class="timeline-text">
+                    <span class="t-vi">
+                      Dashboard trực quan hiển thị tồn bãi theo hãng tàu, loại
+                      container, thời gian nằm bãi, kế hoạch cầu bến và slot truck.
+                      Hệ thống cảnh báo sớm khi bãi gần đầy, OVD tăng cao hoặc phát sinh nghẽn.
+                    </span>
+                    <span class="t-en">
+                      Visual dashboards display yard inventory by shipping line,
+                      container type and dwell time, together with berth and truck
+                      slot plans. The system triggers early warnings when yard
+                      utilization is high, OVD increases or congestion is detected.
+                    </span>
+                  </div>
+                  <div class="timeline-meta">
+                    <span class="t-vi">
+                      Hỗ trợ ra quyết định cho điều độ, kinh doanh và khách hàng.
+                    </span>
+                    <span class="t-en">
+                      Supports decision-making for operations, sales and customers.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="tech-card">
+              <div class="tech-card-inner">
+                <div class="tech-pill">
+                  <span class="t-vi">Green &amp; Smart Port Control Room</span>
+                  <span class="t-en">Green &amp; Smart Port Control Room</span>
+                </div>
+                <div class="tech-heading">
+                  <span class="t-vi">
+                    Trung tâm điều hành số hóa – kết nối hệ sinh thái cảng &amp; depot
+                  </span>
+                  <span class="t-en">
+                    A digital control center connecting port and depot ecosystems
+                  </span>
+                </div>
+                <div class="tech-mini-grid">
+                  <div class="tech-mini-item">
+                    <strong class="t-vi">e-Depot &amp; e-Port</strong>
+                    <strong class="t-en">e-Depot &amp; e-Port</strong>
+                    <span class="t-vi">
+                      Kết nối ứng dụng đặt lịch, CODECO, EDI với hãng tàu, chủ
+                      hàng và hệ sinh thái Đối Tác Chân Thật.
+                    </span>
+                    <span class="t-en">
+                      Integrated booking, CODECO and EDI with shipping lines,
+                      shippers and the Đối Tác Chân Thật ecosystem.
+                    </span>
+                  </div>
+                  <div class="tech-mini-item">
+                    <strong class="t-vi">CO₂ Dashboard</strong>
+                    <strong class="t-en">CO₂ Dashboard</strong>
+                    <span class="t-vi">
+                      Theo dõi lượng phát thải CO₂/container, hỗ trợ doanh nghiệp xây
+                      dựng báo cáo ESG &amp; lựa chọn phương án vận chuyển xanh.
+                    </span>
+                    <span class="t-en">
+                      Monitors CO₂ emissions per container and supports ESG
+                      reporting and greener logistics decisions for customers.
+                    </span>
+                  </div>
+                  <div class="tech-mini-item">
+                    <strong class="t-vi">Slot management</strong>
+                    <strong class="t-en">Slot management</strong>
+                    <span class="t-vi">
+                      Phân bổ slot sà lan &amp; truck, hạn chế ùn tắc, giảm thời
+                      gian chờ tại cổng và trong bãi.
+                    </span>
+                    <span class="t-en">
+                      Allocates barge and truck slots to minimize congestion and
+                      reduce waiting time at the gate and in the yard.
+                    </span>
+                  </div>
+                  <div class="tech-mini-item">
+                    <strong class="t-vi">API cho khách hàng</strong>
+                    <strong class="t-en">Customer APIs</strong>
+                    <span class="t-vi">
+                      Cho phép khách hàng, hãng tàu kết nối hệ thống để lấy dữ
+                      liệu tồn bãi, lịch tàu, lịch xe theo thời gian thực.
+                    </span>
+                    <span class="t-en">
+                      Provides real-time access to yard inventory, vessel/barge
+                      schedules and truck appointments via API integration.
+                    </span>
+                  </div>
+                </div>
+                <div class="tech-foot">
+                  <span class="t-vi">
+                    Hạ tầng phần mềm được thiết kế mở, sẵn sàng tích hợp nhận diện biển
+                    số, cân điện tử, RFID &amp; IoT cho các giai đoạn phát triển tiếp theo.
+                  </span>
+                  <span class="t-en">
+                    The software platform is designed with an open architecture,
+                    ready to integrate license plate recognition, weighbridges, RFID
+                    and IoT systems in future development phases of the port.
+                  </span>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- ESG -->
+      <section id="esg" class="section-esg">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">ESG &amp; Hành trình Net-zero tại Cái Mép Thị Vải</span>
+            <span class="t-en">ESG &amp; the Net-zero journey at Cai Mep Thi Vai</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Cảng không chỉ chú trọng công suất và tốc độ khai thác, mà còn đặt
+              mục tiêu giảm phát thải, bảo vệ môi trường và phát triển bền vững
+              cùng cộng đồng địa phương.
+            </span>
+            <span class="t-en">
+              The port is not only focused on capacity and speed, but also on
+              reducing emissions, protecting the environment and developing
+              sustainably together with the local community.
+            </span>
+          </p>
+
+          <div class="esg-grid">
+            <article class="esg-card">
+              <div class="esg-label">E – Environment</div>
+              <h3>
+                <span class="t-vi">Giảm phát thải &amp; bảo vệ môi trường</span>
+                <span class="t-en">Emission reduction &amp; environmental protection</span>
+              </h3>
+              <ul>
+                <li class="t-vi">Định hướng chuyển đổi dần sang thiết bị xếp dỡ dùng điện.</li>
+                <li class="t-en">Gradual transition to electric-driven handling equipment.</li>
+
+                <li class="t-vi">Quy hoạch trạm sạc cho xe tải/đầu kéo điện trong khu vực cảng.</li>
+                <li class="t-en">Planning of charging stations for electric trucks and tractors in the port area.</li>
+
+                <li class="t-vi">Hệ thống thu gom &amp; xử lý nước thải vệ sinh container.</li>
+                <li class="t-en">Dedicated systems for container cleaning wastewater collection &amp; treatment.</li>
+
+                <li class="t-vi">Theo dõi CO₂/container, hỗ trợ khách hàng xây báo cáo ESG.</li>
+                <li class="t-en">Monitoring CO₂ per container to support customers’ ESG reporting.</li>
+              </ul>
+              <div class="esg-tagline">
+                <span class="t-vi">
+                  “Mỗi container qua cảng là một bước nhỏ trên hành trình Net-zero.”
+                </span>
+                <span class="t-en">
+                  “Every container moving through the port is a step on the Net-zero journey.”
+                </span>
+              </div>
+            </article>
+
+            <article class="esg-card">
+              <div class="esg-label">S – Social</div>
+              <h3>
+                <span class="t-vi">An toàn, việc làm &amp; cộng đồng</span>
+                <span class="t-en">Safety, jobs &amp; community</span>
+              </h3>
+              <ul>
+                <li class="t-vi">Đào tạo định kỳ về an toàn lao động &amp; vận hành thiết bị.</li>
+                <li class="t-en">Regular training on occupational safety and equipment operations.</li>
+
+                <li class="t-vi">Tạo việc làm ổn định cho lao động địa phương khu vực Cái Mép.</li>
+                <li class="t-en">Stable employment opportunities for local workers in the Cái Mép region.</li>
+
+                <li class="t-vi">Chính sách phúc lợi, bảo hộ &amp; môi trường làm việc lành mạnh.</li>
+                <li class="t-en">Solid welfare policies, protective equipment and a healthy work environment.</li>
+
+                <li class="t-vi">Chương trình đồng hành cùng trường học &amp; cộng đồng xung quanh.</li>
+                <li class="t-en">Programs engaging nearby schools and the local community.</li>
+              </ul>
+              <div class="esg-tagline">
+                <span class="t-vi">Con người là trung tâm của mọi chiến lược phát triển cảng.</span>
+                <span class="t-en">People are at the center of every port development strategy.</span>
+              </div>
+            </article>
+
+            <article class="esg-card">
+              <div class="esg-label">G – Governance</div>
+              <h3>
+                <span class="t-vi">Quản trị minh bạch &amp; hệ thống</span>
+                <span class="t-en">Transparent &amp; systemized governance</span>
+              </h3>
+              <ul>
+                <li class="t-vi">Quy trình làm hàng &amp; tính phí rõ ràng, minh bạch.</li>
+                <li class="t-en">Clear and transparent procedures for cargo handling and tariff calculation.</li>
+
+                <li class="t-vi">Kiểm soát nội bộ bằng hệ thống số, hạn chế phụ thuộc giấy tờ.</li>
+                <li class="t-en">Internal control through digital systems instead of paper-based flows.</li>
+
+                <li class="t-vi">Các chỉ số vận hành được giám sát tập trung qua Dashboard.</li>
+                <li class="t-en">Operational KPIs monitored centrally via Dashboards.</li>
+
+                <li class="t-vi">Tuân thủ quy định pháp luật về môi trường &amp; hàng hải.</li>
+                <li class="t-en">Full compliance with environmental and maritime regulations.</li>
+              </ul>
+              <div class="esg-tagline">
+                <span class="t-vi">Dữ liệu là nền tảng cho quyết định minh bạch và bền vững.</span>
+                <span class="t-en">Data is the foundation for transparent and sustainable decisions.</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLIENTS -->
+      <section id="clients">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">Khách hàng &amp; đối tác mục tiêu</span>
+            <span class="t-en">Target customers &amp; partners</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Cảng Cái Mép Thị Vải hướng tới phục vụ đa dạng khách hàng trong
+              chuỗi logistics container: từ hãng tàu, chủ hàng, depot đến nhà xe
+              nội địa và các khu công nghiệp khu vực lân cận.
+            </span>
+            <span class="t-en">
+              Cai Mep Thi Vai Port aims to serve a wide range of stakeholders in
+              the container logistics chain: from shipping lines and cargo owners
+              to inland depots, trucking fleets and industrial zones in the region.
+            </span>
+          </p>
+
+          <div class="clients-row">
+            <span class="client-pill">
+              <span class="t-vi">Hãng tàu container quốc tế &amp; nội địa</span>
+              <span class="t-en">International &amp; domestic container shipping lines</span>
+            </span>
+            <span class="client-pill">
+              <span class="t-vi">Chủ hàng – nhà xuất nhập khẩu</span>
+              <span class="t-en">Cargo owners – importers &amp; exporters</span>
+            </span>
+            <span class="client-pill">
+              <span class="t-vi">Depot &amp; ICD trong khu vực</span>
+              <span class="t-en">Nearby depots &amp; ICDs</span>
+            </span>
+            <span class="client-pill">
+              <span class="t-vi">Nhà xe &amp; đội kéo container</span>
+              <span class="t-en">Trucking fleets &amp; container hauliers</span>
+            </span>
+            <span class="client-pill">
+              <span class="t-vi">Khu công nghiệp &amp; trung tâm logistics</span>
+              <span class="t-en">Industrial zones &amp; logistics centers</span>
+            </span>
+          </div>
+          <p class="clients-note">
+            <span class="t-vi">
+              Cảng sẵn sàng kết nối kỹ thuật (EDI/API) với hệ thống của đối tác
+              để chia sẻ dữ liệu tồn bãi, lịch tàu, lịch xe theo thời gian thực –
+              giảm sai sót thao tác tay và tăng tính minh bạch chuỗi.
+            </span>
+            <span class="t-en">
+              The port is ready for technical integration (EDI/API) with partners’
+              systems to share yard inventory, vessel/barge schedules and truck
+              appointments in real time – reducing manual handling errors and
+              increasing transparency across the chain.
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <!-- NEWS -->
+      <section id="news">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">Tin tức &amp; cập nhật từ cảng</span>
+            <span class="t-en">News &amp; updates from the port</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Một số bản tin &amp; chủ đề mà cảng dự kiến truyền thông thường xuyên.
+              Anh có thể nối phần này với CMS hoặc cập nhật thủ công theo từng kỳ.
+            </span>
+            <span class="t-en">
+              Below are sample topics the port can communicate regularly.
+              This section can be linked to a CMS or updated manually by period.
+            </span>
+          </p>
+
+          <div class="news-grid">
+            <article class="news-card">
+              <div class="news-body">
+                <div class="news-meta">
+                  <span class="t-vi">Tháng 12/2025</span>
+                  <span class="t-en">Dec 2025</span>
+                  <span class="t-vi">Hạ tầng &amp; thiết bị</span>
+                  <span class="t-en">Infrastructure &amp; equipment</span>
+                </div>
+                <h3 class="news-title">
+                  <span class="t-vi">
+                    Hoàn thiện giai đoạn 1 – sẵn sàng khai thác dịch vụ Depot &amp; sà lan
+                  </span>
+                  <span class="t-en">
+                    Phase 1 completion – ready to launch Depot &amp; barge services
+                  </span>
+                </h3>
+                <p class="news-summary">
+                  <span class="t-vi">
+                    Giai đoạn 1 tập trung hoàn thiện hạ tầng bãi, cầu bến, hệ
+                    thống chiếu sáng, thoát nước và nền móng cho việc lắp đặt
+                    thiết bị xếp dỡ container cũng như hệ thống e-Depot.
+                  </span>
+                  <span class="t-en">
+                    Phase 1 focuses on completing yard pavement, berth structures,
+                    lighting, drainage and foundations for container handling
+                    equipment as well as the e-Depot system.
+                  </span>
+                </p>
+              </div>
+              <div class="news-footer">
+                <span class="t-vi">
+                  Đọc thêm: kế hoạch giai đoạn 2 – mở rộng cầu bến &amp; trạm sạc xe điện.
+                </span>
+                <span class="t-en">
+                  Next: Phase 2 – extending berths &amp; deploying EV charging stations.
+                </span>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-body">
+                <div class="news-meta">
+                  <span class="t-vi">Q1/2026</span>
+                  <span class="t-en">Q1 2026</span>
+                  <span class="t-vi">Chuyển đổi số</span>
+                  <span class="t-en">Digital transformation</span>
+                </div>
+                <h3 class="news-title">
+                  <span class="t-vi">
+                    Triển khai Dashboard vận hành &amp; cổng thông tin khách hàng
+                  </span>
+                  <span class="t-en">
+                    Roll-out of operations Dashboard &amp; customer portal
+                  </span>
+                </h3>
+                <p class="news-summary">
+                  <span class="t-vi">
+                    Khách hàng có thể theo dõi tồn bãi, lịch sà lan, tình trạng
+                    container và lịch sử giao dịch trực tuyến; giảm nhu cầu trao
+                    đổi qua email, file Excel thủ công.
+                  </span>
+                  <span class="t-en">
+                    Customers can track yard inventory, barge schedules, container
+                    status and transaction history online, significantly reducing
+                    the need for manual Excel files and email exchanges.
+                  </span>
+                </p>
+              </div>
+              <div class="news-footer">
+                <span class="t-vi">
+                  Định hướng: kết nối API với hệ thống của hãng tàu &amp; chủ hàng.
+                </span>
+                <span class="t-en">
+                  Roadmap: integrating APIs with shipping lines’ and customers’ systems.
+                </span>
+              </div>
+            </article>
+
+            <article class="news-card">
+              <div class="news-body">
+                <div class="news-meta">
+                  <span class="t-vi">2026–2030</span>
+                  <span class="t-en">2026–2030</span>
+                  <span class="t-vi">ESG &amp; Net-zero</span>
+                  <span class="t-en">ESG &amp; Net-zero</span>
+                </div>
+                <h3 class="news-title">
+                  <span class="t-vi">
+                    Lộ trình điện hóa thiết bị &amp; đo lường CO₂/container
+                  </span>
+                  <span class="t-en">
+                    Roadmap for electrification and CO₂ measurement per container
+                  </span>
+                </h3>
+                <p class="news-summary">
+                  <span class="t-vi">
+                    Cảng xây dựng roadmap chuyển đổi sang thiết bị xếp dỡ dùng
+                    điện, kết hợp Dashboard CO₂ để hỗ trợ các bên trong chuỗi
+                    logistics báo cáo phát thải theo chuẩn ESG.
+                  </span>
+                  <span class="t-en">
+                    The port develops a step-by-step roadmap towards electrified
+                    handling equipment, combined with a CO₂ Dashboard to support
+                    stakeholders in the logistics chain with ESG reporting.
+                  </span>
+                </p>
+              </div>
+              <div class="news-footer">
+                <span class="t-vi">
+                  Cùng doanh nghiệp tiến tới chuỗi cung ứng xanh &amp; bền vững.
+                </span>
+                <span class="t-en">
+                  Working together towards a greener and more sustainable supply chain.
+                </span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="container">
+          <h2 class="section-title">
+            <span class="t-vi">Liên hệ &amp; kết nối với Cảng Cái Mép Thị Vải</span>
+            <span class="t-en">Contact Cai Mep Thi Vai Port</span>
+          </h2>
+          <p class="section-subtitle">
+            <span class="t-vi">
+              Để đặt lịch làm hàng, khảo sát hạ tầng hoặc tìm hiểu thêm về các
+              gói dịch vụ Depot – Cảng, vui lòng liên hệ trực tiếp với đội ngũ
+              kinh doanh và điều độ của chúng tôi.
+            </span>
+            <span class="t-en">
+              For berth inquiries, infrastructure surveys or detailed Depot &amp; Port
+              service packages, please contact our commercial and operations teams.
+            </span>
+          </p>
+
+          <div class="contact-layout">
+            <div class="contact-card">
+              <div class="contact-row">
+                <span class="contact-label t-vi">Tên đơn vị:</span>
+                <span class="contact-label t-en">Company name:</span><br />
+                <span class="t-vi">CÔNG TY TNHH KHAI THÁC CẢNG CÁI MÉP THỊ VẢI</span>
+                <span class="t-en">CAI MEP THI VAI PORT OPERATION COMPANY LIMITED</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label t-vi">Địa chỉ:</span>
+                <span class="contact-label t-en">Address:</span><br />
+                <span class="t-vi">2A đường số 5, Phường An Khánh, TP Hồ Chí Minh</span>
+                <span class="t-en">2A Street 5, Ward An Khanh, Ho Chi Minh City</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label t-vi">Hotline:</span>
+                <span class="contact-label t-en">Hotline:</span><br />
+                <span class="t-vi">https://zalo.me/ltacompany</span>
+                <span class="t-en">https://zalo.me/ltacompany</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label t-vi">Email:</span>
+                <span class="contact-label t-en">Email:</span><br />
+                <span class="t-vi">director1@icdcaimepthivai.com</span>
+                <span class="t-en">director1@icdcaimepthivai.com</span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label t-vi">Thời gian làm việc:</span>
+                <span class="contact-label t-en">Working hours:</span><br />
+                <span class="t-vi">
+                  Hỗ trợ điều độ 24/7 theo lịch tàu/sà lan.
+                </span>
+                <span class="t-en">
+                  24/7 operations support based on
+                  vessel/barge schedules.
+                </span>
+              </div>
+              <div class="contact-row">
+                <span class="contact-label t-vi">Kết nối kỹ thuật:</span>
+                <span class="contact-label t-en">Technical connectivity:</span><br />
+                <span class="t-vi">
+                  Hỗ trợ EDI/CODECO, API số liệu tồn bãi &amp; lịch tàu/sà lan theo
+                  yêu cầu của hãng tàu &amp; chủ hàng.
+                </span>
+                <span class="t-en">
+                  Support for EDI/CODECO and API for yard inventory and schedule
+                  data upon request from shipping lines and customers.
+                </span>
+              </div>
+            </div>
+
+            <div class="contact-map">
+              <div>
+                <strong class="t-vi">-    Bản đồ vị trí Cảng Cái Mép Thị Vải</strong>
+                <strong class="t-en">-    Map – Cai Mep Thi Vai Port location</strong>
+                <p class="t-vi">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2696.8348943723363!2d107.03601809999999!3d10.558566700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175139607696ef5%3A0x84313cabc6d9c201!2zUGjDuiBN4bu5IEPDoWkgTcOpcCBFLURlcG90!5e1!3m2!1svn!2s!4v1764604995650!5m2!1svn!2s" 
+                        width="600" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </p>
+                <p class="t-en">
+                    <iframe
+                        width="600" 
+                        height="450" 
+                        style="border:0;"
+                        loading="lazy"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2696.8348943723363!2d107.03601809999999!3d10.558566700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175139607696ef5%3A0x84313cabc6d9c201!2zUGjDuiBN4bu5IEPDoWkgTcOpcCBFLURlcG90!5e1!3m2!1sen!2s!4v1764604995650!5m2!1sen!2s">
+                    </iframe>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div>
+          <span class="t-vi">© <span id="year"></span> Cảng Cái Mép Thị Vải. All rights reserved.</span>
+          <span class="t-en">© <span id="year-en"></span> Cai Mep Thi Vai Port. All rights reserved.</span>
+        </div>
+        <div class="footer-links">
+          <a href="#about">
+            <span class="t-vi">Giới thiệu</span>
+            <span class="t-en">About</span>
+          </a>
+          <a href="#services">
+            <span class="t-vi">Dịch vụ</span>
+            <span class="t-en">Services</span>
+          </a>
+          <a href="#esg">
+            <span class="t-vi">ESG</span>
+            <span class="t-en">ESG</span>
+          </a>
+          <a href="#contact">
+            <span class="t-vi">Liên hệ</span>
+            <span class="t-en">Contact</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Cập nhật năm tự động cho cả VI & EN
+    const year = new Date().getFullYear().toString();
+    const yearEl = document.getElementById("year");
+    const yearEnEl = document.getElementById("year-en");
+    if (yearEl) yearEl.textContent = year;
+    if (yearEnEl) yearEnEl.textContent = year;
+
+    // Ngôn ngữ lưu trong localStorage
+    const body = document.body;
+    const langButtons = document.querySelectorAll(".lang-switch button");
+    const savedLang = localStorage.getItem("siteLang");
+
+    function setLang(langClass) {
+      body.classList.remove("lang-vi", "lang-en");
+      body.classList.add(langClass);
+      localStorage.setItem("siteLang", langClass);
+      langButtons.forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.lang === langClass);
+      });
+    }
+
+    langButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        setLang(btn.dataset.lang);
+      });
+    });
+
+    if (savedLang === "lang-en" || savedLang === "lang-vi") {
+      setLang(savedLang);
+    } else {
+      setLang("lang-vi");
+    }
+  </script>
+</body>
+</html>
